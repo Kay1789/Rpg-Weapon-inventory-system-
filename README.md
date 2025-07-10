@@ -1,3 +1,6 @@
+# Rpg-Weapon-inventory-system-
+A C++ console-based RPG weapon inventory system with upgrade, sort, and search features.
+
 # RPG Weapon Inventory 5.0 ⚔️
 
 This is a C++ console-based program that simulates a weapon inventory system for an RPG game.
