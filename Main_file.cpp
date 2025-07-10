@@ -29,7 +29,7 @@ enum ElementType{
 };
 
 // Level Type Enumeration
-enum LevelType{
+enum LevelTyoe{
     None_Lvl = 0,
     Low_Lvl = 30,
     Mid_Lvl = 60,
@@ -68,7 +68,7 @@ public:
     }
 
     // Parameterized constructor
-    Weapon(WeaponType TypeW, ElementType TypeE, LevelType TypeL, RarityType TypeR, std::string TypeN, int TypeD){
+    Weapon(WeaponType TypeW, ElementType TypeE, LevelTyoe TypeL, RarityType TypeR, std::string TypeN, int TypeD){
         wType = TypeW;
         eType = TypeE;
         lType = TypeL;
@@ -78,10 +78,10 @@ public:
     }
 
     // Getters
-    auto getName() const { return wName; } // used for searching names in search by name function 
-    auto getDmg() const { return wDmg; } // used in sort by dmg function 
-    auto getRarity() const { return rType; } // used in sort by rarity function 
-    LevelType &getLvl() { return lType; } // Reference to level (for upgrading)
+    auto getName() const { return wName; } // Used for searching  by Name
+    auto getDmg() const { return wDmg; } // Used for sorting byDmg
+    auto getRarity() const { return rType; } // Used for sorting by Rarity
+    LevelTyoe &getLvl() { return lType; } // Reference to level (for upgrading)
     auto getSortLvl() const { return lType; } // Used for sorting by level
 
     // Static helper functions to convert enums to strings
@@ -127,7 +127,7 @@ public:
         }
     }
 
-    static std::string getLevelInfo(LevelType l){
+    static std::string getLevelInfo(LevelTyoe l){
         switch(l){
             case None_Lvl: return "None_Lvl";
             case Low_Lvl: return "Low_Lvl";
@@ -138,11 +138,11 @@ public:
     }
 
     // Method to upgrade level
-    void Upgrade_Lvel(LevelType &uLvl){
+    void Upgrade_Lvel(LevelTyoe &uLvl){
         switch (uLvl) {
-            case None_Lvl: uLvl = Low_Lvl; break;
-            case Low_Lvl: uLvl = Mid_Lvl; break;
-            case Mid_Lvl: uLvl = High_Lvl; break;
+            case None_Lvl: uLvl = Low_Lvl; wDmg += rand()%150+1; break;
+            case Low_Lvl: uLvl = Mid_Lvl; wDmg += rand()%250+1; break;
+            case Mid_Lvl: uLvl = High_Lvl; wDmg += rand()%359+1; break;
             case High_Lvl: std::cout << "You've reached the maximum Level "; break;
             default: std::cout << " Unkown "; break;
         }
@@ -156,6 +156,30 @@ public:
                   << " | Ya Weapon's Rarity : " << getRarityInfo(rType)
                   << " | Ya Weapon's Level : " << getLevelInfo(lType)
                   << " | Ya Weapon's Dmg output : " << wDmg << " \n ";
+
+        }
+    // ASCII art for exit
+    void byeAscci() {
+        std::cout << "(\\_/) \n";
+        std::cout << "(｡•́︿•̀｡) \n";
+        std::cout << " > ^ <  \n";
+        std::cout << " /    \\  \n";
+        std::cout << "/(\")(\") \n";
+        std::cout << "||=======|| \n";
+        std::cout << "||ByeBye || \n";
+        std::cout << "||=======|| \n";
+    }
+
+    // ASCII art for welcome
+    void welcomeAscci() {
+        std::cout << "(\\_/) \n";
+        std::cout << "(@ . ^) \n";
+        std::cout << " > ^ <  \n";
+        std::cout << " /    \\  \n";
+        std::cout << "/(\")(\") \n";
+        std::cout << "||=======|| \n";
+        std::cout << "||Welcome|| \n";
+        std::cout << "||=======|| \n";
     }
 };
 
@@ -166,6 +190,7 @@ int currentInventoryCount = 0;
 
 // Add new weapon to inventory
 void addStuff(int &addCount, int maxCount){
+    std::cout << "/================({|})==================/ \n ";
     int addW, addE, addL, addDz, addR;
     std::string addN;
 
@@ -222,7 +247,7 @@ void addStuff(int &addCount, int maxCount){
     Inventory[addCount] = Weapon(
         static_cast<WeaponType>(addW),
         static_cast<ElementType>(addE),
-        static_cast<LevelType>(addL),
+        static_cast<LevelTyoe>(addL),
         static_cast<RarityType>(addR),
         addN,
         addDz
@@ -230,10 +255,12 @@ void addStuff(int &addCount, int maxCount){
 
     addCount++;
     std::cout << " Weapon Added To Inventory\n";
+    std::cout << "/================({|})==================/ \n     ";
 }
 
 // Remove weapon by index
 void removeStuff(int &removeCount){
+    std::cout << "|~@~@~@~@~@~@~@~@~{[<+>]}~@~@~@~@~@~@~@~@~| \n";
     int index;
     std::cout << " Enter index of weapon to remove [1 to " << removeCount << "] : ";
     std::cin >> index;
@@ -251,10 +278,12 @@ void removeStuff(int &removeCount){
 
     removeCount--;
     std::cout << " Weapon Removed \n ";
+    std::cout << "|~@~@~@~@~@~@~@~@~{[<+>]}~@~@~@~@~@~@~@~@~| \n";
 }
 
 // Search weapon by name (substring)
 void searchByName(int &searchCount){
+    std::cout << "-_-_-_-_-_-_-_-_-_-_-([/|\\])-_-_-_-_-_-_-_-_-_- \n";
     std::string query;
     bool foundIT = false;
 
@@ -269,12 +298,13 @@ void searchByName(int &searchCount){
     }
 
     if(!foundIT){
-        std::cout << " No match found for '" << query << "'\n";
+        std::cout << " No match found for '" << query << "'\n";     std::cout << "-_-_-_-_-_-_-_-_-_-_-([/|\\])-_-_-_-_-_-_-_-_    -_- \n";
     }
 }
 
 // Upgrade weapon level
 void upgradeStuff(int &upgradeCount){
+    std::cout << "\\*_*_*_*_*_*_*_*_*_*_*{</>}*_*_*_*_*_*_*_*_*_* \\ \n";
     int index;
     std::cout << " Select weapon to upgrade [1 to " << upgradeCount << "] : ";
     std::cin >> index;
@@ -289,10 +319,12 @@ void upgradeStuff(int &upgradeCount){
     Inventory[index].Upgrade_Lvel(Inventory[index].getLvl());
     Inventory[index].Display_Stats();
     std::cout << " Weapon Upgraded \n ";
+    std::cout << "\\*_*_*_*_*_*_*_*_*_*_*{</>}*_*_*_*_*_*_*_*_*    _* \\ \n";
 }
 
 // Sort weapons by dmg (descending)
 void sortByDmg(int &dmgCount){
+    std::cout << "<<===== 🗡️Sorting by Dmg 🗡️ =====>> \n";
     for(int j = 0; j < dmgCount - 1; j++){
         for(int k = j + 1; k < dmgCount; k++){
             if(Inventory[j].getDmg() < Inventory[k].getDmg()){
@@ -301,10 +333,12 @@ void sortByDmg(int &dmgCount){
         }
     }
     std::cout << " Weapons sorted by dmg \n ";
+    std::cout << "<<===== 🗡️ DONE 🗡️ =====>> \n";
 }
 
 // Sort weapons by rarity (descending)
 void sortByRarity(int &rarityCount){
+    std::cout << "<<===== 🗡️Sorting by Rarity  🗡️ =====>> \n";
     for(int m = 0; m < rarityCount - 1; m++){
         for(int n = m + 1; n < rarityCount; n++){
             if(Inventory[m].getRarity() < Inventory[n].getRarity()){
@@ -313,10 +347,12 @@ void sortByRarity(int &rarityCount){
         }
     }
     std::cout << " Weapons sorted by rarity \n ";
+    std::cout << "<<===== 🗡️ DONE 🗡️ =====>> \n";
 }
 
 // Sort weapons by level (descending)
 void getSortByLvl(int &lvlCount){
+    std::cout << "<<===== 🗡️Sorting by Level 🗡️ =====>> \n";
     for(int w = 0; w < lvlCount - 1; w++){
         for(int x = w + 1; x < lvlCount; x++){
             if(Inventory[w].getSortLvl() < Inventory[x].getSortLvl()){
@@ -325,10 +361,12 @@ void getSortByLvl(int &lvlCount){
         }
     }
     std::cout << " Weapons sorted by level \n ";
+    std::cout << "<<===== 🗡️ DONE 🗡️ =====>> \n";
 }
 
 // View all weapons
 void viewStuff(int &viewCount){
+    std::cout << "/=============(View)==========\\ \n";
     if(viewCount == 0){
         std::cout << " The Inventory is empty \n ";
         return;
@@ -338,11 +376,13 @@ void viewStuff(int &viewCount){
         std::cout << (u + 1) << ". ";
         Inventory[u].Display_Stats();
     }
+    std::cout << "/=============(Done Viewing )==========\\ \n";
 }
 
 // Main menu to control all actions
 void mainMenu(){
     char op;
+    std::cout <<"|============ Main Menu ===========| \n ";
 
     std::cout << "\nChoose an option:\n";
     std::cout << "Add Weapons[A] \nRemove Weapons[R] \nSearch Weapons by Name[S] \nSort by Dmg[D] \nSort by Rarity[G] \nSort by Level[L] \nUpgrade Weapon[U] \nView Inventory[V] \nQuit[Q] \n> ";
@@ -357,14 +397,23 @@ void mainMenu(){
         case 'L': getSortByLvl(currentInventoryCount); break;
         case 'U': upgradeStuff(currentInventoryCount); break;
         case 'V': viewStuff(currentInventoryCount); break;
-        case 'Q': std::cout << " Exiting program \n"; delete[] Inventory; exit(EXIT_SUCCESS); break;
+        case 'Q':
+            Inventory->byeAscci();
+            std::cout << " Exiting program \n"; delete[] Inventory;
+            std::cout << "}======== ACTION COMPLETE ========{ \n ";
+            exit(EXIT_SUCCESS); break;
         default: std::cout << " Invalid input, try again \n"; break;
     }
 }
 
 // Main function
 int main(){
-    std::cout << " RPG Weapon Inventory 5.0 \n ";
+
+    Inventory->welcomeAscci();
+
+    std::cout << "+------------------------------+\n";
+    std::cout << "|   RPG Weapon Inventory 5.0  |\n";
+    std::cout << "+------------------------------+\n";
     std::cout << " Enter Max Inventory Size: ";
     std::cin >> maxInventoryCount;
 
